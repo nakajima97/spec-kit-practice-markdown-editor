@@ -1,37 +1,92 @@
-# Next.js テンプレート
+# Markdown Editor Practice
 
-このリポジトリは、Next.js プロジェクトのテンプレートです。  
-App Routerを使っています。  
-Page Routerは以下リポジトリを参照してください。  
-https://github.com/nakajima97/next-template-page-router
+このリポジトリは、spec-kitを使用したMarkdownエディターの実装練習プロジェクトです。  
+リアルタイムプレビュー機能を持つMarkdownエディターをNext.js（App Router）で実装しています。
+
+## 機能
+
+- **リアルタイムプレビュー**: Markdownの入力と同時にプレビューが更新されます
+- **分割レイアウト**: エディターペインとプレビューペインを並べて表示
+- **GitHub Flavored Markdown対応**: テーブル、タスクリスト、コードブロックなどをサポート
+- **シンタックスハイライト**: Prism.jsを使用したコードブロックのハイライト
+- **デバウンス機能**: パフォーマンス最適化のための入力遅延処理
 
 ## 技術スタック
-最新の情報は`package.json`を参照してください。  
-主な技術スタックとしては以下を使っています。  
 
-* Next.js
-* React
-* pnpm
-* Biome
+最新の情報は`package.json`を参照してください。
+
+### フロントエンド
+* Next.js 15.3.3 (App Router)
+* React 19.1.0
+* TypeScript
+* react-markdown (Markdownレンダリング)
+* remark-gfm (GitHub Flavored Markdown)
+* Prism.js (シンタックスハイライト)
+
+### 開発ツール
+* Biome (Linter/Formatter)
+* Vitest (テストフレームワーク)
+* Testing Library (React コンポーネントテスト)
+* Storybook (コンポーネント開発環境)
+* pnpm (パッケージマネージャー)
 
 ## セットアップ
 
-1. リポジトリをクローンします。
+1. リポジトリをクローンします
 2. 依存関係をインストールします: `pnpm install`
-3. プロジェクトを起動します: `pnpm dev`
+3. 開発サーバーを起動します: `pnpm dev`
+4. ブラウザで http://localhost:3000 を開きます
 
-## テスト
+## 開発コマンド
 
-`pnpm test` を実行してテストを実行します。
+```bash
+# 開発サーバー起動（Turbopack使用）
+pnpm dev
 
-## インストールオプション
-NextJSインストール時のオプションは以下を選択しています。
+# ビルド
+pnpm build
+
+# 本番サーバー起動
+pnpm start
+
+# テスト実行
+pnpm test
+
+# テスト（ウォッチモード）
+pnpm test:watch
+
+# テストカバレッジ
+pnpm test:coverage
+
+# Storybook起動
+pnpm storybook
+
+# コード品質チェック・修正
+pnpm bc
+
+# TypeScriptタイプチェック
+pnpm tc
 ```
-✔ What is your project named? … next-template
-✔ Would you like to use ESLint? … Yes
-✔ Would you like to use Tailwind CSS? … No
-✔ Would you like to use `src/` directory? … Yes
-✔ Would you like to use App Router? (recommended) … Yes
-✔ Would you like to customize the default import alias (@/*)? … Yes
-✔ What import alias would you like configured? … @/*
+
+## プロジェクト構成
+
 ```
+src/
+├── app/                    # Next.js App Router
+├── features/
+│   └── markdown-editor/    # Markdownエディター機能
+│       ├── components/     # React コンポーネント
+│       │   ├── containers/ # コンテナコンポーネント
+│       │   └── presentational/ # プレゼンテーショナルコンポーネント
+│       ├── hooks/          # カスタムフック
+│       ├── types/          # TypeScript型定義
+│       └── utils/          # ユーティリティ関数
+└── stories/                # Storybook ストーリー
+```
+
+## アーキテクチャ
+
+- **Feature-Based Architecture**: 機能ごとにディレクトリを分割
+- **Container/Presentational Pattern**: ロジックと表示を分離
+- **Custom Hooks**: ビジネスロジックの再利用
+- **TypeScript**: 型安全性の確保
