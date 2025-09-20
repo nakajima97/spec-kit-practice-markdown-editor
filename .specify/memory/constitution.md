@@ -38,6 +38,11 @@ Biome MUST format and lint all code. The `bc` command MUST pass before any commi
 
 **Rationale**: Consistent code style improves readability and reduces review friction.
 
+### VI. Japanese Language Requirement
+All user-facing text, documentation, and comments MUST be written in Japanese. Exceptions require explicit approval from the team lead.
+
+**Rationale**: Ensures clarity for a Japanese-speaking development team and end-users, and maintains consistency across the project.
+
 ## Technology Constraints
 
 ### Required Stack
