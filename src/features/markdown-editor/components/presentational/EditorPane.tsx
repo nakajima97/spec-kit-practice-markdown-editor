@@ -34,7 +34,7 @@ export const EditorPane: React.FC<EditorPaneProps> = ({
       const end = textarea.selectionEnd;
       const value = textarea.value;
 
-      const newValue = value.substring(0, start) + '  ' + value.substring(end);
+      const newValue = `${value.substring(0, start)}  ${value.substring(end)}`;
       onChange(newValue);
 
       // Restore cursor position after the inserted tab

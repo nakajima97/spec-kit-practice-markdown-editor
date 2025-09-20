@@ -230,7 +230,7 @@ interface User {
 
     // Add more content
     fireEvent.change(editor, {
-      target: { value: longContent + '\n\n## New Section' },
+      target: { value: `${longContent}\n\n## New Section` },
     });
     vi.advanceTimersByTime(300);
 

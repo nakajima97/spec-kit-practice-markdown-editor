@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { ValidationResult } from '../types/markdown';
 
@@ -31,84 +31,85 @@ export class MarkdownParser {
 
     const remarkPlugins = this.options.enableGFM ? [remarkGfm] : [];
 
+    const components: Components = {
+      code: ({ node, inline, className, children, ...props }) => {
+        const match = /language-(\w+)/.exec(className || '');
+        const language = match ? match[1] : '';
+
+        if (!inline && language) {
+          return React.createElement(
+            'pre',
+            {
+              className: `language-${language}`,
+            },
+            React.createElement(
+              'code',
+              {
+                className: `language-${language}`,
+                ...props,
+              },
+              children,
+            ),
+          );
+        }
+
+        return React.createElement(
+          'code',
+          {
+            className,
+            ...props,
+          },
+          children,
+        );
+      },
+      h1: ({ children, ...props }) =>
+        React.createElement('h1', props, children),
+      h2: ({ children, ...props }) =>
+        React.createElement('h2', props, children),
+      h3: ({ children, ...props }) =>
+        React.createElement('h3', props, children),
+      h4: ({ children, ...props }) =>
+        React.createElement('h4', props, children),
+      h5: ({ children, ...props }) =>
+        React.createElement('h5', props, children),
+      h6: ({ children, ...props }) =>
+        React.createElement('h6', props, children),
+      p: ({ children, ...props }) => React.createElement('p', props, children),
+      strong: ({ children, ...props }) =>
+        React.createElement('strong', props, children),
+      em: ({ children, ...props }) =>
+        React.createElement('em', props, children),
+      ul: ({ children, ...props }) =>
+        React.createElement('ul', props, children),
+      ol: ({ children, ...props }) =>
+        React.createElement('ol', props, children),
+      li: ({ children, ...props }) =>
+        React.createElement('li', props, children),
+      a: ({ href, children, ...props }) =>
+        React.createElement('a', { href, ...props }, children),
+      table: ({ children, ...props }) =>
+        React.createElement('table', props, children),
+      thead: ({ children, ...props }) =>
+        React.createElement('thead', props, children),
+      tbody: ({ children, ...props }) =>
+        React.createElement('tbody', props, children),
+      tr: ({ children, ...props }) =>
+        React.createElement('tr', props, children),
+      th: ({ children, ...props }) =>
+        React.createElement('th', props, children),
+      td: ({ children, ...props }) =>
+        React.createElement('td', props, children),
+      del: ({ children, ...props }) =>
+        React.createElement('del', props, children),
+      input: ({ type, checked, disabled, ...props }) =>
+        React.createElement('input', { type, checked, disabled, ...props }),
+    };
+
     return React.createElement(
       ReactMarkdown,
       {
         remarkPlugins,
-        components: {
-          code: ({ node, inline, className, children, ...props }: any) => {
-            const match = /language-(\w+)/.exec(className || '');
-            const language = match ? match[1] : '';
-
-            if (!inline && language) {
-              return React.createElement(
-                'pre',
-                {
-                  className: `language-${language}`,
-                },
-                React.createElement(
-                  'code',
-                  {
-                    className: `language-${language}`,
-                    ...props,
-                  },
-                  children,
-                ),
-              );
-            }
-
-            return React.createElement(
-              'code',
-              {
-                className,
-                ...props,
-              },
-              children,
-            );
-          },
-          h1: ({ children, ...props }: any) =>
-            React.createElement('h1', props, children),
-          h2: ({ children, ...props }: any) =>
-            React.createElement('h2', props, children),
-          h3: ({ children, ...props }: any) =>
-            React.createElement('h3', props, children),
-          h4: ({ children, ...props }: any) =>
-            React.createElement('h4', props, children),
-          h5: ({ children, ...props }: any) =>
-            React.createElement('h5', props, children),
-          h6: ({ children, ...props }: any) =>
-            React.createElement('h6', props, children),
-          p: ({ children, ...props }: any) =>
-            React.createElement('p', props, children),
-          strong: ({ children, ...props }: any) =>
-            React.createElement('strong', props, children),
-          em: ({ children, ...props }: any) =>
-            React.createElement('em', props, children),
-          ul: ({ children, ...props }: any) =>
-            React.createElement('ul', props, children),
-          ol: ({ children, ...props }: any) =>
-            React.createElement('ol', props, children),
-          li: ({ children, ...props }: any) =>
-            React.createElement('li', props, children),
-          a: ({ href, children, ...props }: any) =>
-            React.createElement('a', { href, ...props }, children),
-          table: ({ children, ...props }: any) =>
-            React.createElement('table', props, children),
-          thead: ({ children, ...props }: any) =>
-            React.createElement('thead', props, children),
-          tbody: ({ children, ...props }: any) =>
-            React.createElement('tbody', props, children),
-          tr: ({ children, ...props }: any) =>
-            React.createElement('tr', props, children),
-          th: ({ children, ...props }: any) =>
-            React.createElement('th', props, children),
-          td: ({ children, ...props }: any) =>
-            React.createElement('td', props, children),
-          del: ({ children, ...props }: any) =>
-            React.createElement('del', props, children),
-          input: ({ type, checked, disabled, ...props }: any) =>
-            React.createElement('input', { type, checked, disabled, ...props }),
-        },
+        components,
       },
       content,
     );

@@ -164,7 +164,7 @@ describe('useDebounced', () => {
     expect(result.current.debouncedValue).toBe(null);
     expect(result.current.isPending).toBe(false);
 
-    rerender({ value: undefined as any });
+    rerender({ value: undefined });
 
     act(() => {
       vi.advanceTimersByTime(300);

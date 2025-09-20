@@ -214,9 +214,9 @@ describe('useMarkdownProcessor', () => {
     const results = await Promise.all(promises);
 
     // All should complete successfully
-    results.forEach((result) => {
+    for (const result of results) {
       expect(result).toBeDefined();
-    });
+    }
   });
 
   it('maintains processing state correctly across multiple calls', async () => {

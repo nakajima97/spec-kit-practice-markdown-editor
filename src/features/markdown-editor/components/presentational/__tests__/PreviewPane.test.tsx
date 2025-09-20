@@ -205,9 +205,10 @@ describe('PreviewPane', () => {
   it('supports scrollable content', () => {
     const longContent = (
       <div>
-        {Array.from({ length: 100 }, (_, i) => (
-          <p key={i}>This is paragraph {i + 1}</p>
-        ))}
+        {Array.from({ length: 100 }, (_, i) => {
+          const id = `test-paragraph-${Date.now()}-${Math.random()}-${i}`;
+          return <p key={id}>This is paragraph {i + 1}</p>;
+        })}
       </div>
     );
 

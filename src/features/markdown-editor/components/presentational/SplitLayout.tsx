@@ -47,7 +47,6 @@ export const SplitLayout: React.FC<SplitLayoutProps> = ({
           overflow: 'hidden',
         }}
         aria-label="Editor pane"
-        tabIndex={0}
         data-testid="left-pane"
       >
         {left}
@@ -76,7 +75,6 @@ export const SplitLayout: React.FC<SplitLayoutProps> = ({
             overflow: 'hidden',
           }}
           aria-label="Preview pane"
-          tabIndex={0}
           data-testid="right-pane"
         >
           {right}
