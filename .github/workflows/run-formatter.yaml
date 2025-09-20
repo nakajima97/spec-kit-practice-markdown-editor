@@ -1,0 +1,27 @@
+on: [pull_request]
+
+jobs:
+  run-formatter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Next.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run formatter
+        run: pnpm format
