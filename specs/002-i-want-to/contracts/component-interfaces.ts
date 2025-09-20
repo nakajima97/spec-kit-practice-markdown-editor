@@ -1,12 +1,12 @@
 /**
  * Component Interface Contracts for Markdown Editor
- * 
+ *
  * These interfaces define the contracts between components
  * for the markdown editor feature. All components must
  * implement these interfaces to ensure proper integration.
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 // ===== Core Data Types =====
 
@@ -187,7 +187,7 @@ export interface EditorEvents {
 /**
  * Error types that can occur in the markdown editor
  */
-export type MarkdownEditorError = 
+export type MarkdownEditorError =
   | 'CONTENT_TOO_LARGE'
   | 'INVALID_MARKDOWN'
   | 'PROCESSING_FAILED'

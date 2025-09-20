@@ -1,7 +1,9 @@
+import { MarkdownEditor } from '@/features/markdown-editor/components/containers/MarkdownEditor';
+
 export default function Home() {
   return (
-    <main>
-      <p>Hello, world!</p>
+    <main style={{ height: '100vh', width: '100vw' }}>
+      <MarkdownEditor />
     </main>
   );
 }
