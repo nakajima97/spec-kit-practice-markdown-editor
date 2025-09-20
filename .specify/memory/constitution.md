@@ -1,50 +1,76 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Markdown Editor Constitution
+
+<!-- Sync Impact Report
+Version change: (initial) → 1.0.0
+Modified principles: New constitution
+Added sections: All sections (new constitution)
+Removed sections: None
+Templates requiring updates: 
+✅ Updated: Core principles aligned with TDD and component architecture
+⚠ Pending: Manual review of task categorization in templates
+Follow-up TODOs: None
+-->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Test-Driven Development (NON-NEGOTIABLE)
+TDD MUST be followed for all development: Write tests first → Get user approval → Watch tests fail → Implement to pass. Red-Green-Refactor cycle is strictly enforced. All features require tests before implementation begins.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+**Rationale**: Ensures quality, prevents regressions, and validates requirements before code is written.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Component Architecture
+Components MUST follow Presentational/Container pattern. Shared components in `src/components/`, feature-specific components in `src/features/`. Each component requires Storybook stories for UI development and testing.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+**Rationale**: Clear separation of concerns, improved reusability, and systematic UI development.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Feature-Based Organization
+Code MUST be organized by feature in `src/features/` with clear boundaries. Each feature includes its own hooks, types, services, and utils. Cross-feature dependencies require explicit justification.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Rationale**: Enables scalability, modularity, and team ownership of specific features.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Type Safety
+TypeScript MUST be used throughout. All public APIs require explicit type definitions. The `tc` command MUST pass before any commit.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**Rationale**: Prevents runtime errors, improves code documentation, and enables better refactoring.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Code Quality Standards
+Biome MUST format and lint all code. The `bc` command MUST pass before any commit. Configuration follows project standards: 2-space indentation, single quotes.
+
+**Rationale**: Consistent code style improves readability and reduces review friction.
+
+## Technology Constraints
+
+### Required Stack
+- Next.js 15 with App Router for routing and SSR
+- React 19 for UI components
+- pnpm for package management
+- Biome for formatting and linting (replaces ESLint)
+- Vitest with jsdom for testing
+- Storybook for component development
+- TypeScript <5.5.0 for type checking
+
+### Import Patterns
+Use `@/*` alias for `src/` directory imports. Follow absolute import paths from `src/`. Biome automatically organizes imports according to project configuration.
+
+## Development Workflow
+
+### Testing Requirements
+All features MUST have unit tests using Vitest. Component tests MUST use React Testing Library with jsdom environment. Coverage reports generated via `pnpm test:coverage`.
+
+### Development Commands
+- `pnpm dev` for development with Turbopack
+- `pnpm test` for test execution
+- `pnpm tc` for TypeScript checking
+- `pnpm bc` for code quality checks
+- `pnpm storybook` for component development
+
+### Quality Gates
+Before any commit: TypeScript check passes, Biome formatting/linting passes, all tests pass. No exceptions to quality gates.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices. All code reviews MUST verify compliance with these principles. Complexity MUST be justified with clear business requirements.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Amendments require documentation, team approval, and migration plan for existing code. Use CLAUDE.md for runtime development guidance and command references.
+
+**Version**: 1.0.0 | **Ratified**: 2025-01-20 | **Last Amended**: 2025-01-20
