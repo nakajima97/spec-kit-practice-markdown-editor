@@ -3,6 +3,17 @@ import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { ValidationResult } from '../types/markdown';
 
+interface CodeProps {
+  node?: unknown;
+  inline?: boolean;
+  className?: string;
+  children?: ReactNode;
+  style?: React.CSSProperties;
+  id?: string;
+  title?: string;
+  lang?: string;
+}
+
 export interface MarkdownParserOptions {
   enableGFM?: boolean;
   maxLength?: number;
@@ -32,7 +43,7 @@ export class MarkdownParser {
     const remarkPlugins = this.options.enableGFM ? [remarkGfm] : [];
 
     const components: Components = {
-      code: ({ node, inline, className, children, ...props }) => {
+      code: ({ node, inline, className, children, ...props }: CodeProps) => {
         const match = /language-(\w+)/.exec(className || '');
         const language = match ? match[1] : '';
 

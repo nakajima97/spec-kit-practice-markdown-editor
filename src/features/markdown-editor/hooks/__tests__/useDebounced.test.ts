@@ -150,7 +150,7 @@ describe('useDebounced', () => {
   it('handles undefined and null values', () => {
     const { result, rerender } = renderHook(
       ({ value }) => useDebounced(value, 300),
-      { initialProps: { value: 'initial' as string | null } },
+      { initialProps: { value: 'initial' as string | null | undefined } },
     );
 
     rerender({ value: null });
